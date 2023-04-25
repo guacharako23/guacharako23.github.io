@@ -46,12 +46,13 @@ function cambio(id){
 	fetch('https://rickandmortyapi.com/api/character')
 	.then(response => response.json())
 	.then(data => {
+		const container = document.getElementById('cards-container');
+		container.innerHTML = '';
 		for (let i = 0; i < 18; i++) {
 			const personaje = data.results[i];
-			console.log("ID: "+id+"Personaje: "+personaje.id);
-			if(id!='' && personaje.includes(id)){
+			console.log("ID: "+id+" Personaje: "+personaje.id);
+			if(id !== '' && personaje.id === parseInt(id)){
 				console.log("1..");
-				const container = document.getElementById('cards-container');
 				container.innerHTML += `
 					<div class="col-lg-4 col-md-6 mb-4">
 						<div class="card h-100">
@@ -65,9 +66,8 @@ function cambio(id){
 						</div>
 					</div>
 				`;
-			}else{
+			} else if (id === '') {
 				console.log("2..");
-				const container = document.getElementById('cards-container');
 				container.innerHTML += `
 					<div class="col-lg-4 col-md-6 mb-4">
 						<div class="card h-100">
@@ -82,11 +82,8 @@ function cambio(id){
 					</div>
 				`;
 			}
-			
 		}
 	})
 	.catch(error => console.log(error));	
 }
-
-
 
